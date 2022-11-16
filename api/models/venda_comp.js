@@ -11,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       Venda_Comp.belongsToMany(models.Produtos, {
         through: "Venda_Comp_Produtos",
       });
-      Venda_Comp.belongsTo(models.Vendas, {
-        foreignKey: "venda_comp_id",
-      });
+      Venda_Comp.belongsTo(models.Vendas);
     }
   }
   Venda_Comp.init(

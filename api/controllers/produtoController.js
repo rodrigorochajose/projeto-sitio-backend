@@ -1,5 +1,4 @@
 const database = require("../models");
-const produtos = require("../models/produtos");
 
 class produtoController {
   static async buscarTodosProdutos(req, res) {

@@ -3,14 +3,11 @@ const usuarioController = require("../controllers/usuarioController");
 
 const router = Router();
 
-router.get("/usuarios", usuarioController.buscarTodosUsuarios);
-
-router.get("/usuario/:id", usuarioController.buscarUsuario);
-
-router.post("/novoUsuario", usuarioController.criarUsuario);
-
-router.put("/atualizaUsuario/:id", usuarioController.atualizarUsuario);
-
-router.delete("/deletaUsuario/:id", usuarioController.deletarUsuario);
+router
+  .get("/usuarios", usuarioController.buscarTodosUsuarios)
+  .get("/usuario/:id", usuarioController.buscarUsuario)
+  .post("/novoUsuario", usuarioController.criarUsuario)
+  .put("/atualizaUsuario/:id", usuarioController.atualizarUsuario)
+  .delete("/deletaUsuario/:id", usuarioController.deletarUsuario);
 
 module.exports = router;

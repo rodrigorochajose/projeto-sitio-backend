@@ -1,29 +1,18 @@
 "use strict";
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Venda_Comp", {
-      id: {
+    await queryInterface.createTable("Venda_Comp_Produtos", {
+      produto_id: {
         allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.INTEGER,
         primaryKey: true,
-        type: Sequelize.INTEGER,
       },
-      venda_id: {
+      venda_comp_id: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: "Vendas", key: "id" },
-      },
-      quantidade: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
-      valor: {
-        allowNull: false,
-        type: Sequelize.FLOAT,
-      },
-      data_venda: {
-        type: Sequelize.DATEONLY,
+        primaryKey: true,
       },
       createdAt: {
         allowNull: false,
@@ -35,7 +24,8 @@ module.exports = {
       },
     });
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Venda_Comp");
+    await queryInterface.dropTable("Venda_Comp_Produtos");
   },
 };

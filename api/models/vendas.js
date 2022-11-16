@@ -9,23 +9,20 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Vendas.hasMany(models.Venda_Comp, {
-        foreignKey: "venda_comp_id",
+        foreignKey: "venda_id",
       });
       Vendas.hasMany(models.Entregas, {
-        foreignKey: "entrega_id",
+        foreignKey: "venda_id",
       });
-      Vendas.belongsTo(models.Clientes, {
-        foreignKey: "cliente_id",
-      });
-      Vendas.belongsTo(models.Usuarios, {
-        foreignKey: "usuario_id",
-      });
+      Vendas.belongsTo(models.Clientes);
+      Vendas.belongsTo(models.Usuarios);
     }
   }
   Vendas.init(
     {
       data_venda: DataTypes.DATEONLY,
       total: DataTypes.FLOAT,
+      total_original: DataTypes.FLOAT,
       pago: DataTypes.BOOLEAN,
     },
     {
