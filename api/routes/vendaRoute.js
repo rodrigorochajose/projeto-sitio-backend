@@ -3,6 +3,6 @@ const vendaController = require("../controllers/vendaController");
 
 const router = Router();
 
-router.post("/venda", vendaController.geraNovaVenda);
+router.post("/venda/nova", vendaController.geraNovaVenda);
 
 module.exports = router;

@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Entregas.init(
     {
+      endereco: DataTypes.STRING,
       data_entrega: DataTypes.DATEONLY,
       entregue: DataTypes.BOOLEAN,
     },

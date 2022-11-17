@@ -14,6 +14,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: "Vendas", key: "id" },
       },
+      endereco: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       data_entrega: {
         type: Sequelize.DATEONLY,
       },

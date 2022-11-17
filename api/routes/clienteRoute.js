@@ -6,8 +6,8 @@ const router = Router();
 router
   .get("/clientes", clienteController.buscarTodosClientes)
   .get("/cliente/:id", clienteController.buscarCliente)
-  .post("/novoCliente", clienteController.criarCliente)
-  .put("/atualizaCliente/:id", clienteController.atualizarCliente)
-  .delete("/deletaCliente/:id", clienteController.deletarCliente);
+  .post("/cliente/novo", clienteController.criarCliente)
+  .put("/cliente/atualiza:id", clienteController.atualizarCliente)
+  .delete("/cliente/deleta:id", clienteController.deletarCliente);
 
 module.exports = router;
