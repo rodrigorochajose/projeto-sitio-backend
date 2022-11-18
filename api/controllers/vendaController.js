@@ -14,7 +14,7 @@ function buscaProximaSexta() {
 }
 
 class vendaController {
-  static async geraNovaVenda(req, res) {
+  static async criaVenda(req, res) {
     const {
       cliente_id,
       usuario_id,
@@ -76,7 +76,7 @@ class vendaController {
     }
   }
 
-  static async buscarVendas(req, res) {
+  static async buscarTodasVendas(req, res) {
     try {
       const todasVendas = await database.Vendas.findAll();
 
@@ -109,7 +109,10 @@ class vendaController {
           id: Number(id),
         },
       });
-      res.status(200).json({ message: `Venda ${id} atualizada!` });
+      const vendaAtualizada = await database.Vendas.findOne({
+        where: { id: Number(id) },
+      });
+      return res.status(200).json(vendaAtualizada);
     } catch (error) {
       return res.status(400).json(error.message);
     }
