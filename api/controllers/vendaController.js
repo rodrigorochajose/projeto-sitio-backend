@@ -1,5 +1,6 @@
 const database = require("../models");
 const sequelize = require("sequelize");
+const { restart } = require("nodemon");
 
 // as entregas são feitas todas as sextas feiras, então ao gerar uma entrega, gerar para a próxima sexta da data atual
 function buscaProximaSexta() {
@@ -22,20 +23,41 @@ class vendaController {
       total_original,
       pago,
       produto_id,
+      quantidade,
       endereco,
     } = req.body;
 
-    const dadosVenda = {
-      cliente_id,
-      usuario_id,
-      data_venda,
-      total,
-      total_original,
-      pago,
-    };
-
     try {
+      const dadosVenda = {
+        cliente_id,
+        usuario_id,
+        data_venda,
+        total,
+        total_original,
+        pago,
+      };
+
       const vendaGerada = await database.Vendas.create(dadosVenda);
+
+      const produto_array = produto_id.split(",");
+      const quantidade_array = quantidade.split(",");
+
+      produto_array.forEach(async (produto_id, index) => {
+        const valor = await database.Produtos.findOne({
+          attributes: ["valor"],
+          where: {
+            id: Number(produto_id),
+          },
+        });
+
+        await database.Venda_Comps.create({
+          venda_id: vendaGerada.id,
+          produto_id,
+          quantidade: quantidade_array[index],
+          valor: Number(valor.valor),
+          data_venda,
+        });
+      });
 
       const dadosEntrega = {
         venda_id: vendaGerada.id,
@@ -44,8 +66,50 @@ class vendaController {
         entregue: false,
       };
 
-      const entregaGerada = await database.Entregas.create(dadosEntrega);
-      return res.status(200).json(vendaGerada, entregaGerada);
+      await database.Entregas.create(dadosEntrega);
+
+      return res
+        .status(200)
+        .json({ message: `Venda ${vendaGerada.id} realizada com sucesso !` });
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  }
+
+  static async buscarVendas(req, res) {
+    try {
+      const todasVendas = await database.Vendas.findAll();
+
+      return res.status(200).json(todasVendas);
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  }
+
+  static async buscarVenda(req, res) {
+    const { id } = req.params;
+    try {
+      const vendaBusca = await database.Vendas.findOne({
+        where: {
+          id: Number(id),
+        },
+      });
+      return res.status(200).json(vendaBusca);
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  }
+
+  static async atualizarVenda(req, res) {
+    const { id } = req.params;
+    const dados = req.body;
+    try {
+      await database.Vendas.update(dados, {
+        where: {
+          id: Number(id),
+        },
+      });
+      res.status(200).json({ message: `Venda ${id} atualizada!` });
     } catch (error) {
       return res.status(400).json(error.message);
     }
