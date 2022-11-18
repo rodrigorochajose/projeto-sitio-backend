@@ -10,12 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       cliente_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: "Clientes", key: "id" },
       },
       usuario_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: "Usuarios", key: "id" },
       },
@@ -24,6 +22,9 @@ module.exports = {
       },
       total: {
         allowNull: false,
+        type: Sequelize.FLOAT,
+      },
+      total_original: {
         type: Sequelize.FLOAT,
       },
       pago: {

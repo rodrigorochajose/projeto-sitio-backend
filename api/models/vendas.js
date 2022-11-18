@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Vendas.hasMany(models.Venda_Comp, {
-        foreignKey: "venda_comp_id",
+      Vendas.hasMany(models.Venda_Comps, {
+        foreignKey: "venda_id",
       });
       Vendas.hasMany(models.Entregas, {
-        foreignKey: "entrega_id",
+        foreignKey: "venda_id",
       });
       Vendas.belongsTo(models.Clientes, {
         foreignKey: "cliente_id",
@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       data_venda: DataTypes.DATEONLY,
       total: DataTypes.FLOAT,
+      total_original: DataTypes.FLOAT,
       pago: DataTypes.BOOLEAN,
     },
     {

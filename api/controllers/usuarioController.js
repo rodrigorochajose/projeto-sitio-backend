@@ -1,5 +1,4 @@
 const database = require("../models");
-const usuario = require("../models/usuarios");
 
 class usuarioController {
   static async buscarTodosUsuarios(req, res) {

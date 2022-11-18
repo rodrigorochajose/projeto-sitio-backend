@@ -9,12 +9,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Entregas.belongsTo(models.Vendas, {
-        foreignKey: "entrega_id",
+        foreignKey: "venda_id",
       });
     }
   }
   Entregas.init(
     {
+      endereco: DataTypes.STRING,
       data_entrega: DataTypes.DATEONLY,
       entregue: DataTypes.BOOLEAN,
     },
