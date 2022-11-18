@@ -1,22 +1,22 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Venda_Comp extends Model {
+  class Venda_Comps extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Venda_Comp.belongsToMany(models.Produtos, {
-        through: "Venda_Comp_Produtos",
+      Venda_Comps.belongsTo(models.Produtos, {
+        foreignKey: "produto_id",
       });
-      Venda_Comp.belongsTo(models.Vendas, {
-        foreignKey: "venda_comp_id",
+      Venda_Comps.belongsTo(models.Vendas, {
+        foreignKey: "venda_id",
       });
     }
   }
-  Venda_Comp.init(
+  Venda_Comps.init(
     {
       quantidade: DataTypes.INTEGER,
       valor: DataTypes.FLOAT,
@@ -24,8 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Venda_Comp",
+      modelName: "Venda_Comps",
     }
   );
-  return Venda_Comp;
+  return Venda_Comps;
 };
