@@ -43,11 +43,19 @@ class vendaController {
 
       produto_array.forEach(async (produto_id, index) => {
         const valor = await database.Produtos.findOne({
-          attributes: ["valor"],
+          attributes: ["valor", "estoque"],
           where: {
             id: Number(produto_id),
           },
         });
+
+        if (valor.estoque != null) {
+          const novoEstoque = valor.estoque - quantidade_array[index];
+          await database.Produtos.update(
+            { estoque: novoEstoque },
+            { where: { id: Number(produto_id) } }
+          );
+        }
 
         await database.Venda_Comps.create({
           venda_id: vendaGerada.id,
