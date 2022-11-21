@@ -1,6 +1,5 @@
 const database = require("../models");
 const sequelize = require("sequelize");
-const { restart } = require("nodemon");
 
 // as entregas são feitas todas as sextas feiras, então ao gerar uma entrega, gerar para a próxima sexta da data atual
 function buscaProximaSexta() {
@@ -94,7 +93,12 @@ class vendaController {
           id: Number(id),
         },
       });
-      return res.status(200).json(vendaBusca);
+      const vendaCompBusca = await database.Venda_Comps.findAll({
+        where: {
+          venda_id: Number(id),
+        },
+      });
+      return res.status(200).json({ vendaBusca, vendaCompBusca });
     } catch (error) {
       return res.status(400).json(error.message);
     }
