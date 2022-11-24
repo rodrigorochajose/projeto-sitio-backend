@@ -25,6 +25,7 @@ module.exports = {
       ativo: {
         allowNull: false,
         type: Sequelize.BOOLEAN,
+        defaultValue: true,
       },
       createdAt: {
         allowNull: false,
