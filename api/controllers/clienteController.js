@@ -3,7 +3,9 @@ const database = require("../models");
 class clienteController {
   static async buscarTodosClientes(req, res) {
     try {
-      const todosClientes = await database.Clientes.findAll();
+      const todosClientes = await database.Clientes.findAll({
+        order: ["id"],
+      });
       return res.status(200).json(todosClientes);
     } catch (error) {
       return res.status(400).json(error.message);

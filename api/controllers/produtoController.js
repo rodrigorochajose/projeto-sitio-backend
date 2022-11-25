@@ -3,7 +3,9 @@ const database = require("../models");
 class produtoController {
   static async buscarTodosProdutos(req, res) {
     try {
-      const todosProdutos = await database.Produtos.findAll();
+      const todosProdutos = await database.Produtos.findAll({
+        order: ["id"],
+      });
       return res.status(200).json(todosProdutos);
     } catch (error) {
       return res.status(400).json(error.message);

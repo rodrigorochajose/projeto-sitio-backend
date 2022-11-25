@@ -4,6 +4,8 @@ const clientes = require("./clienteRoute");
 const produtos = require("./produtoRoute");
 const vendas = require("./vendaRoute");
 const entregas = require("./entregaRoute");
+const session = require("./sessionRoute");
+const Authorization = require("../middlewares/auth");
 const cors = require("cors");
 
 module.exports = (app) => {
@@ -16,8 +18,18 @@ module.exports = (app) => {
       "Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization"
     );
     app.use(cors());
+
     next();
   });
 
-  app.use(bodyParser.json(), usuarios, clientes, produtos, vendas, entregas);
+  app.use(
+    bodyParser.json(),
+    session,
+    Authorization,
+    clientes,
+    usuarios,
+    produtos,
+    vendas,
+    entregas
+  );
 };
