@@ -3,7 +3,9 @@ const database = require("../models");
 class entregaController {
   static async buscarTodasEntregas(req, res) {
     try {
-      const todosEntregas = await database.Entregas.findAll();
+      const todosEntregas = await database.Entregas.findAll({
+        order: ["id"],
+      });
       return res.status(200).json(todosEntregas);
     } catch (error) {
       return res.status(400).json(error.message);
