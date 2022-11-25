@@ -3,7 +3,17 @@ const database = require("../models");
 class usuarioController {
   static async buscarTodosUsuarios(req, res) {
     try {
-      const todosUsuarios = await database.Usuarios.findAll();
+      const todosUsuarios = await database.Usuarios.findAll({
+        attributes: [
+          "id",
+          "apelido",
+          "login",
+          "ativo",
+          "createdAt",
+          "updatedAt",
+        ],
+        order: ["id"],
+      });
       return res.status(200).json(todosUsuarios);
     } catch (error) {
       return res.status(400).json(error.message);

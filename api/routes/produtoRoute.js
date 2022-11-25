@@ -7,7 +7,7 @@ router
   .get("/produtos", produtoController.buscarTodosProdutos)
   .get("/produto/:id", produtoController.buscarProduto)
   .post("/produto/novo", produtoController.criarProduto)
-  .put("/produto/atualiza/:id", produtoController.atualizarProduto)
-  .delete("/produto/deleta/:id", produtoController.deletarProduto);
+  .put("/produto/atualizar/:id", produtoController.atualizarProduto)
+  .delete("/produto/deletar/:id", produtoController.deletarProduto);
 
 module.exports = router;

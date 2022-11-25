@@ -29,6 +29,7 @@ module.exports = {
       },
       pago: {
         type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       createdAt: {
         allowNull: false,

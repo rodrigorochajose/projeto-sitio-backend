@@ -49,7 +49,7 @@ class vendaController {
           },
         });
 
-        if (valor.estoque != null) {
+        if (valor.estoque >= quantidade_array[index]) {
           const novoEstoque = valor.estoque - quantidade_array[index];
           await database.Produtos.update(
             { estoque: novoEstoque },
@@ -85,7 +85,9 @@ class vendaController {
 
   static async buscarTodasVendas(req, res) {
     try {
-      const todasVendas = await database.Vendas.findAll();
+      const todasVendas = await database.Vendas.findAll({
+        order: ["id"],
+      });
 
       return res.status(200).json(todasVendas);
     } catch (error) {
